@@ -5,3 +5,5 @@
 
 - **Mk 2 checkpoint** — `afb114d`: résumé details, fixed projects, direct email contact, October 31, 2026.
 - **Mk 3** — continuous vector signature with finishing stroke last, lower scroll speed and calmer motion, compact résumé section, and an editable copy and picture reference document.
+
+Mk 3 checkpoint: 1bbb507. Mk 4 updates approved document copy and hero, removes hidden-stroke cap dots, adds scribble hover, animated résumé heading and contact depth, and links the actual résumé.
