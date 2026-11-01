@@ -9,3 +9,6 @@
 
 /* Mk 3: compact résumé and continuous vector handwriting. */
 .smooth-signature{color:var(--light);filter:none;overflow:visible;shape-rendering:geometricPrecision}.smooth-signature .ink-trace{stroke-dasharray:none;stroke-dashoffset:0;vector-effect:none}.opening-signature{width:min(700px,78vw)}.resume-section{padding:80px 5%}.resume-compact{display:grid;grid-template-columns:1fr 1fr;gap:8%;align-items:center}.resume-compact .bracket{margin:0}.resume-intro p{font-size:22px;line-height:1.5;max-width:510px;margin:0 0 30px}.resume-compact .resume-label{margin-bottom:22px}.resume-intro .resume-button{font-size:13px}@media(max-width:767px){.opening-signature{width:88vw}.resume-section{padding:60px 5%}.resume-compact{grid-template-columns:1fr;gap:28px}.resume-compact .bracket{font-size:11vw}.resume-intro p{font-size:18px;margin-bottom:25px}}
+
+/* Keep the pen hidden until fonts and stroke lengths are ready. */
+.opening-signature{visibility:hidden}
