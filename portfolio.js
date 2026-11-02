@@ -12,20 +12,39 @@ button.addEventListener('pointerenter',()=>{const p=svg.querySelector('path'),l=
 button.addEventListener('pointerleave',()=>{const p=svg.querySelector('path');tween?.kill();tween=gsap.to(p,{strokeDashoffset:-p.getTotalLength(),strokeWidth:4,duration:.8,ease:'power2.inOut'});});
 new ResizeObserver(layout).observe(button);
 });}
+// Match the reference easing without changing the site's other animations.
+function referenceEase(progress){
+let lo=0,hi=1,t=progress;
+for(let i=0;i<20;i++){t=(lo+hi)/2;const x=3*(1-t)*(1-t)*t*.625+t*t*t;if(x<progress)lo=t;else hi=t;}
+return 3*(1-t)*(1-t)*t*.05+3*(1-t)*t*t+t*t*t;
+}
 function setupContact(){
-if(reduced)return;
-const section=$('.contact-section'),words=$('.contact-words');
-gsap.fromTo('.contact-content',{autoAlpha:0,y:45,filter:'blur(5px)'},{autoAlpha:1,y:0,filter:'blur(0px)',duration:1.4,ease:'power2.out',scrollTrigger:{trigger:section,start:'top 78%',once:true}});
-const positions=[[-38,-36],[-14,-40],[14,-40],[38,-36],[-43,-12],[-18,-17],[18,-17],[43,-12],[-43,14],[-18,18],[18,18],[43,14],[-38,36],[-14,40],[14,40],[38,36]],tunnel=gsap.timeline({repeat:-1,paused:true});
-positions.forEach(([x,y],i)=>{const word=document.createElement('span');word.textContent='CONTACT';words.append(word);const phase=i*.4;
-gsap.set(word,{xPercent:-50,yPercent:-50,x:x*.16+'vw',y:y*.16+'vh',z:-1600,scale:.3,autoAlpha:0,filter:'blur(9px)'});
-tunnel.fromTo(word,{x:x*.16+'vw',y:y*.16+'vh',z:-1600,scale:.3,autoAlpha:0,filter:'blur(9px)'},{x:x+'vw',y:y+'vh',z:0,scale:1,autoAlpha:.2,filter:'blur(0px)',duration:3.8,ease:'sine.inOut',immediateRender:false},phase).to(word,{x:x*1.12+'vw',y:y*1.12+'vh',z:900,scale:1.35,autoAlpha:0,filter:'blur(7px)',duration:3.8,ease:'sine.in'},phase+3.8);
-});
-ScrollTrigger.create({trigger:section,start:'top bottom',end:'bottom top',onToggle:({isActive})=>isActive?tunnel.play():tunnel.pause()});
+const section=$('.contact-section'),content=$('.contact-content'),layer=$('.contact-words');
+if(reduced){gsap.set(content,{autoAlpha:1,yPercent:0,scale:1,filter:'none'});return;}
+gsap.set(content,{autoAlpha:0,yPercent:25,scale:.96,filter:'blur(.5rem)'});
+gsap.to(content,{autoAlpha:1,yPercent:0,scale:1,filter:'blur(0rem)',ease:'none',scrollTrigger:{trigger:section,start:'top 60%',end:'top 25%',scrub:true,invalidateOnRefresh:true}});
+const positions=[[-38,-38],[-14,-40],[14,-40],[38,-38],[-42,-14],[-18,-18],[18,-18],[42,-14],[-42,14],[-18,18],[18,18],[42,14],[-38,38],[-14,40],[14,40],[38,38]];
+const tunnel=gsap.timeline({scrollTrigger:{trigger:section,start:'top top',end:'bottom bottom',scrub:1,invalidateOnRefresh:true}});
+const random=gsap.utils.random;
+for(let index=0;index<50;index++){
+const word=document.createElement('span');word.textContent='CONTACT';layer.append(word);
+const [x,y]=positions[index%positions.length];
+const at=random(0,.52)+.12*Math.floor(index/positions.length),enter=random(.12,.18),leave=random(.12,.18);
+const startX=x*random(.08,.22),startY=y*random(.08,.22),midX=x+random(-4,4),midY=y+random(-4,4),endX=midX+random(-3,3),endY=midY+random(-3,3),size=random(.7,1.3),alpha=random(.25,.62);
+gsap.set(word,{xPercent:-50,yPercent:-50,x:startX+'vw',y:startY+'vh',z:random(-1600,-1100),scale:.35*size,autoAlpha:0,filter:'blur(.65rem)'});
+tunnel.to(word,{x:midX+'vw',y:midY+'vh',z:0,scale:size,autoAlpha:alpha,filter:'blur(0rem)',duration:enter,ease:'power1.inOut'},at)
+.to(word,{x:endX+'vw',y:endY+'vh',z:random(800,1200),scale:size*random(1.3,1.65),autoAlpha:0,filter:'blur(.5rem)',duration:leave,ease:'power1.in'},at+enter);
+}
 }
 function setupResumeHeading(){
 if(reduced||!window.SplitText)return;
-$$('[data-assemble]').forEach(el=>SplitText.create(el,{type:'chars,lines',charsClass:'assembly-char',autoSplit:true,onSplit(split){const radius=Math.min(180,Math.min(innerWidth,innerHeight)*.18);gsap.set(split.chars,{x:()=>gsap.utils.random(-radius,radius),y:()=>gsap.utils.random(-radius,radius),rotation:()=>gsap.utils.random(-75,75),scale:()=>gsap.utils.random(.6,1.35),opacity:0,filter:'blur(6px)'});return gsap.to(split.chars,{x:0,y:0,rotation:0,scale:1,opacity:1,filter:'blur(0px)',duration:1.65,stagger:{each:.025,from:'random'},ease:'power3.out',scrollTrigger:{trigger:el,start:'top 88%',once:true}});}}));
+$$('[data-assemble]').forEach(heading=>{
+const radius=Math.min(3*parseFloat(getComputedStyle(heading).fontSize),.2*Math.min(innerWidth,innerHeight));
+SplitText.create(heading,{type:'chars',charsClass:'assembly-char',onSplit(split){
+gsap.set(split.chars,{x:()=>gsap.utils.random(-radius,radius),y:()=>gsap.utils.random(-radius,radius),rotation:()=>gsap.utils.random(-90,90),scale:()=>gsap.utils.random(.5,1.4),filter:'blur(8px)'});
+return gsap.to(split.chars,{x:0,y:0,rotation:0,scale:1,filter:'blur(0px)',duration:.6,ease:referenceEase,stagger:{each:.03,from:'random'},scrollTrigger:{trigger:heading,start:'top bottom',end:'top 15%',scrub:true}});
+}});
+});
 }
 function setupProjectVideo(){
 const video=$('.drone-loop'),button=$('.video-toggle');if(!video)return;
