@@ -11,3 +11,5 @@ Mk 3 checkpoint: 1bbb507. Mk 4 updates approved document copy and hero, removes 
 Mk 4 checkpoint: 219ff1d. Mk 5 tightens the About spacing, replaces the scroll-bound contact tunnel with a slow time-based loop, rebuilds the résumé letter assembly, adds project presentation links and plays all three drone clips as one silent loop.
 
 Mk 5 motion correction: match the reference scroll-driven, reversible résumé assembly and 250dvh sticky Contact stage, 50-word depth choreography, 1000px perspective and foreground layering. Replace the timed approximations.
+
+Final touch: add the reference five-layer progressive top-edge backdrop blur beneath the sharp navigation. Match desktop/tablet/mobile scaling; no pointer interception or scroll animation changes.
