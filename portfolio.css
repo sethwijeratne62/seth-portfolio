@@ -29,3 +29,14 @@
 .video-art{background:#261f25;position:relative;overflow:hidden}.video-art video{display:block;width:100%;height:100%;object-fit:contain;max-height:660px;position:absolute;inset:0}.video-toggle{position:absolute;right:15px;bottom:15px;background:#111016cc;color:var(--light);border:1px solid #ffffff70;border-radius:30px;padding:9px 15px;font-size:12px;z-index:3}.video-toggle:hover{background:var(--light);color:var(--ink)}
 @media(max-width:767px){.intro-copy{margin-bottom:44px}.portrait-wrap{margin-top:0}.about-profile{gap:30px}.resume-section{padding:80px 5% 85px}.contact-section{height:auto;min-height:90svh}.contact-pin{position:relative;min-height:90svh;height:auto}.contact-content{padding:100px 5%}.video-art{height:410px;min-height:410px}.presentation-button{margin-bottom:8px}}
 @media(prefers-reduced-motion:reduce){.assembly-char{will-change:auto}.contact-section,.contact-pin{height:auto;min-height:80svh}.contact-words{display:none}}
+
+/* Reference correction: reversible scroll assembly and the original depth stage. */
+.contact-section{height:250dvh;min-height:0;overflow:visible;padding:0;display:block;position:relative}
+.contact-pin{position:sticky;top:0;height:100dvh;min-height:0;perspective:1000px;transform-style:preserve-3d;display:grid;place-items:center;overflow:hidden;isolation:auto}
+.contact-words{position:absolute;inset:0;z-index:3;pointer-events:none;transform-style:preserve-3d;overflow:hidden;contain:none}
+.contact-words span{position:absolute;left:50%;top:50%;font-size:3.5vw;font-weight:400;line-height:1;white-space:nowrap;pointer-events:none}
+.contact-content{z-index:2;position:relative;width:min(90%,50rem);padding:0;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:2em}
+.contact-content h2{font-size:clamp(80px,13vw,200px);line-height:.85;margin:0}.contact-content p{max-width:30em;margin:0;text-align:center}.contact-content .button{margin:0}
+.assembly-char{will-change:transform,filter}
+@media(max-width:767px){.contact-section{height:250dvh;min-height:0}.contact-pin{height:100dvh;min-height:0;position:sticky}.contact-content{padding:0;gap:2em}.contact-content h2{font-size:clamp(64px,10vw,160px)}.contact-words span{font-size:3.5vw}}
+@media(prefers-reduced-motion:reduce){.contact-section{height:auto;min-height:85svh}.contact-pin{position:relative;height:auto;min-height:85svh}.contact-content{padding:65px 0}.contact-words{display:none}}
