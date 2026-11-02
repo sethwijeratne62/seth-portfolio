@@ -40,3 +40,15 @@
 .assembly-char{will-change:transform,filter}
 @media(max-width:767px){.contact-section{height:250dvh;min-height:0}.contact-pin{height:100dvh;min-height:0;position:sticky}.contact-content{padding:0;gap:2em}.contact-content h2{font-size:clamp(64px,10vw,160px)}.contact-words span{font-size:3.5vw}}
 @media(prefers-reduced-motion:reduce){.contact-section{height:auto;min-height:85svh}.contact-pin{position:relative;height:auto;min-height:85svh}.contact-content{padding:65px 0}.contact-words{display:none}}
+
+/* Five graduated backdrop layers, matching the reference top-edge treatment. */
+.top-edge-blur{--blur-scale:calc(clamp(992px,100vw,1920px)/90);font-size:var(--blur-scale);position:fixed;top:0;left:0;width:100%;height:8em;z-index:39;pointer-events:none;isolation:isolate;contain:paint;transform-style:preserve-3d;overflow:hidden;transform:translateZ(0)}
+.top-edge-blur__layer{position:absolute;inset:0;width:100%;height:100%}
+.top-edge-blur__layer.is-1{-webkit-backdrop-filter:blur(.01em);backdrop-filter:blur(.01em);-webkit-mask:linear-gradient(#000 0% 12.5%,#0000 25%);mask:linear-gradient(#000 0% 12.5%,#0000 25%)}
+.top-edge-blur__layer.is-2{-webkit-backdrop-filter:blur(.02em);backdrop-filter:blur(.02em);-webkit-mask:linear-gradient(#000 12.5% 25%,#0000 37.5%);mask:linear-gradient(#000 12.5% 25%,#0000 37.5%)}
+.top-edge-blur__layer.is-3{-webkit-backdrop-filter:blur(.05em);backdrop-filter:blur(.05em);-webkit-mask:linear-gradient(#000 25% 37.5%,#0000 50%);mask:linear-gradient(#000 25% 37.5%,#0000 50%)}
+.top-edge-blur__layer.is-4{-webkit-backdrop-filter:blur(.1em);backdrop-filter:blur(.1em);-webkit-mask:linear-gradient(#000 37.5% 50%,#0000 62.5%);mask:linear-gradient(#000 37.5% 50%,#0000 62.5%)}
+.top-edge-blur__layer.is-5{-webkit-backdrop-filter:blur(.2em);backdrop-filter:blur(.2em);-webkit-mask:linear-gradient(#000 50%,#0000 75%);mask:linear-gradient(#000 50%,#0000 75%)}
+@media(max-width:991px){.top-edge-blur{--blur-scale:calc(clamp(768px,100vw,991px)*16/834);height:6em}}
+@media(max-width:767px){.top-edge-blur{--blur-scale:calc(clamp(480px,100vw,767px)*16/550)}}
+@media(max-width:479px){.top-edge-blur{--blur-scale:calc(clamp(320px,100vw,479px)*16/402)}}
